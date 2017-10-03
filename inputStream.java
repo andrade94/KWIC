@@ -5,36 +5,40 @@ import java.util.Scanner;
 public class inputStream {
 
     public static void main(String[] args) {
-        new inputStream().start();
+       	Scanner scanner = new Scanner(System.in);
+    	System.out.print("File: Leer archivo\nConsola: Leer de consola\nExit: Si deseas terminar.\n");
+    	List<String> Sentences = new ArrayList<String>();
+    	boolean cycle = true;
+    	while (cycle) {
+	    	String input = scanner.nextLine();
+	 		switch (input.toLowerCase()) {
+	 			case "consola":
+	 				Sentences = new inputStream().readLinesFromConsole();
+	 				cycle = false;
+	 				break;
+	 			case "file":
+	 				System.out.print("File.\n");
+	 				cycle = false;
+	 				break;
+	 			case "exit":
+	 				System.out.print("Hasta luego.\n");
+	 				return;
+	 			default:
+	 				System.out.print("Inválido.\n");
+	 				break;
+	 		}
+    	}
+    	System.out.println(Sentences);
     }
 
-    public void start() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.print("Escribe --file-- si leerás de archivo o --consola-- si escribirás.\n");
-    	String input = scanner.nextLine();
-    	List<String> sentences;
- 		switch (input.toLowerCase()) {
- 			case "consola":
- 				sentences = readInput();
- 				break;
- 			case "file":
- 				System.out.print("File\n");
- 				break;
- 			default:
- 				System.out.print("Invalido.\n");
- 				break;
- 		}
-    	System.out.print(sentences);
-    }
-
-    private List<String> readInput() {
+    private List<String> readLinesFromConsole() {
     	List<String> sentences = new ArrayList();
     	String sentence = "";
-    	while (!sentence.equalsIgnoreCase("q")) {
-    		System.out.print("Escribe una oración (o 'q' para salir) => ");
-            Scanner input = new Scanner(System.in);
-            sentence = input.nextLine();
-            if (!sentence.equalsIgnoreCase("q") && !sentence.isEmpty()) {
+    	while (!sentence.toLowerCase().equals("exit")) {
+    		System.out.print("Escribe una oración ó exit para salir:");
+            Scanner scanner = new Scanner(System.in);
+            sentence = scanner.nextLine();
+            if (!sentence.toLowerCase().equals("exit") && !sentence.isEmpty()) {
                 sentences.add(sentence);
             }
     	}
